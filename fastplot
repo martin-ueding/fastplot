@@ -1,0 +1,49 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+
+# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+
+import argparse
+import numpy as np
+import matplotlib.pyplot as pl
+
+def main():
+    options = _parse_args()
+
+    for filename in options.filenames:
+        data = np.loadtxt(filename)
+
+        row_count, column_count = data.shape
+
+        x = data[:, 0]
+        y = data[:, 1]
+
+        if column_count == 2:
+            pl.plot(x, y, marker='o', label=filename)
+
+        if column_count == 3:
+            y_err = data[:, 2]
+
+            pl.errorbar(x, y, yerr=y_err, marker='o', label=filename)
+
+
+    pl.legend(loc='best')
+    pl.grid(True)
+    pl.show()
+
+def _parse_args():
+    """
+    Parses the command line arguments.
+
+    :return: Namespace with arguments.
+    :rtype: Namespace
+    """
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument('filenames', nargs='+')
+
+    options = parser.parse_args()
+
+    return options
+
+if __name__ == "__main__":
+    main()
