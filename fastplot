@@ -29,6 +29,9 @@ def main():
 
     pl.legend(loc='best')
     pl.grid(True)
+
+    if options.xlog:
+        pl.xscale('log')
     if options.ylog:
         pl.yscale('log')
 
@@ -43,6 +46,7 @@ def _parse_args():
     """
     parser = argparse.ArgumentParser(description="")
     parser.add_argument('filenames', nargs='+')
+    parser.add_argument('--xlog', action='store_true')
     parser.add_argument('--ylog', action='store_true')
 
     options = parser.parse_args()
