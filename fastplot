@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
-# Copyright © 2014 Martin Ueding <dev@martin-ueding.de>
+# Copyright © 2014, 2017 Martin Ueding <dev@martin-ueding.de>
 
 import argparse
 import numpy as np
 import matplotlib.pyplot as pl
+
 
 def main():
     options = _parse_args()
@@ -35,7 +36,19 @@ def main():
     if options.ylog:
         pl.yscale('log')
 
+    pl.margins(0.05)
+
+    if options.title is not None:
+        pl.title(options.title)
+    if options.xlabel is not None:
+        pl.xlabel(options.xlabel)
+    if options.ylabel is not None:
+        pl.ylabel(options.ylabel)
+
+    pl.tight_layout()
+
     pl.show()
+
 
 def _parse_args():
     """
@@ -48,10 +61,14 @@ def _parse_args():
     parser.add_argument('filenames', nargs='+')
     parser.add_argument('--xlog', action='store_true')
     parser.add_argument('--ylog', action='store_true')
+    parser.add_argument('--title')
+    parser.add_argument('--xlabel')
+    parser.add_argument('--ylabel')
 
     options = parser.parse_args()
 
     return options
+
 
 if __name__ == "__main__":
     main()
