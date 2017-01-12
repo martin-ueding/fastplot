@@ -12,7 +12,7 @@ def main():
     options = _parse_args()
 
     for filename in options.filenames:
-        data = np.loadtxt(filename)
+        data = np.atleast_2d(np.loadtxt(filename))
 
         row_count, column_count = data.shape
 
